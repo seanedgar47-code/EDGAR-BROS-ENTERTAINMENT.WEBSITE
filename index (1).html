@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edgar Bros Entertainment | Bar & Venue DJ Services</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Inter & Montserrat -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            purple: '#9d4edd',
+                            neonPurple: '#c77dff',
+                            cyan: '#00f5d4',
+                            pink: '#f72585',
+                            darkBg: '#0b0914',
+                            cardBg: '#151226',
+                            borderGlow: '#2e1c59'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Montserrat', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #0b0914;
+            color: #f3f4f6;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Glassmorphism styling */
+        .glass-card {
+            background: rgba(21, 18, 38, 0.75);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(157, 78, 221, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        .glass-card:hover {
+            border-color: rgba(0, 245, 212, 0.4);
+            box-shadow: 0 10px 35px 0 rgba(157, 78, 221, 0.25);
+        }
+
+        /* Neon Glow Utility Effects */
+        .neon-text-purple {
+            text-shadow: 0 0 10px rgba(199, 125, 255, 0.7), 0 0 20px rgba(157, 78, 221, 0.5);
+        }
+        
+        .neon-text-cyan {
+            text-shadow: 0 0 10px rgba(0, 245, 212, 0.7), 0 0 20px rgba(0, 245, 212, 0.4);
+        }
+
+        .neon-box-purple {
+            box-shadow: 0 0 15px rgba(157, 78, 221, 0.4);
+        }
+
+        .neon-box-cyan {
+            box-shadow: 0 0 15px rgba(0, 245, 212, 0.4);
+        }
+
+        /* Gradient Text */
+        .gradient-text {
+            background: linear-gradient(135deg, #00f5d4 0%, #c77dff 50%, #f72585 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Audio Visualizer Animation */
+        @keyframes barPulse {
+            0%, 100% { height: 10%; }
+            50% { height: 95%; }
+        }
+
+        .eq-bar {
+            animation: barPulse 1.2s infinite ease-in-out;
+        }
+
+        .playing .eq-bar:nth-child(1) { animation-delay: 0.1s; }
+        .playing .eq-bar:nth-child(2) { animation-delay: 0.4s; }
+        .playing .eq-bar:nth-child(3) { animation-delay: 0.2s; }
+        .playing .eq-bar:nth-child(4) { animation-delay: 0.6s; }
+        .playing .eq-bar:nth-child(5) { animation-delay: 0.3s; }
+        .playing .eq-bar:nth-child(6) { animation-delay: 0.5s; }
+        
+        .paused .eq-bar {
+            height: 15% !important;
+            animation: none !important;
+        }
+    </style>
+</head>
+<body class="relative">
+
+    <!-- Glowing Background Spheres -->
+    <div class="fixed -top-40 -left-40 w-96 h-96 bg-brand-purple/20 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="fixed top-1/2 -right-40 w-96 h-96 bg-brand-cyan/15 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="fixed -bottom-40 left-1/3 w-96 h-96 bg-brand-pink/15 rounded-full blur-3xl pointer-events-none"></div>
+
+    <!-- Navigation Bar -->
+    <header class="sticky top-0 z-50 glass-card bg-brand-darkBg/90 backdrop-blur-md border-b border-brand-purple/20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="#home" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-purple to-brand-cyan flex items-center justify-center text-black font-extrabold text-xl shadow-lg group-hover:scale-105 transition-transform">
+                    <i class="fa-solid fa-compact-disc text-slate-900"></i>
+                </div>
+                <div>
+                    <span class="font-heading font-black text-lg md:text-xl tracking-wider text-white block leading-none">EDGAR BROS</span>
+                    <span class="text-xs text-brand-cyan font-bold tracking-widest uppercase">ENTERTAINMENT</span>
+                </div>
+            </a>
+
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex items-center space-x-8">
+                <a href="#about" class="text-sm font-medium text-gray-300 hover:text-brand-cyan transition-colors">The Duo</a>
+                <a href="#vibes" class="text-sm font-medium text-gray-300 hover:text-brand-cyan transition-colors">Vibes & Genres</a>
+                <a href="#media" class="text-sm font-medium text-gray-300 hover:text-brand-cyan transition-colors">Reel & Gallery</a>
+                <a href="#rig" class="text-sm font-medium text-gray-300 hover:text-brand-cyan transition-colors">Pro Gear Spec</a>
+            </nav>
+
+            <!-- Action Callout Button & Mobile Menu Toggle -->
+            <div class="flex items-center gap-4">
+                <a href="#booking" class="hidden sm:inline-flex items-center justify-center px-5 py-2.5 rounded-full font-bold text-sm bg-gradient-to-r from-brand-purple to-brand-pink text-white hover:opacity-95 shadow-lg shadow-brand-purple/30 transition-all hover:scale-105">
+                    Book Venue Date
+                </a>
+                <button id="mobileMenuBtn" class="md:hidden text-gray-300 hover:text-white text-2xl focus:outline-none" aria-label="Toggle Menu">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Drawer -->
+        <div id="mobileMenu" class="hidden md:hidden glass-card border-t border-brand-purple/20 px-4 pt-3 pb-6 space-y-3">
+            <a href="#about" class="block py-2 text-gray-300 hover:text-brand-cyan">The Duo</a>
+            <a href="#vibes" class="block py-2 text-gray-300 hover:text-brand-cyan">Vibes & Genres</a>
+            <a href="#media" class="block py-2 text-gray-300 hover:text-brand-cyan">Reel & Gallery</a>
+            <a href="#rig" class="block py-2 text-gray-300 hover:text-brand-cyan">Pro Gear Spec</a>
+            <a href="#booking" class="block py-3 text-center rounded-xl bg-gradient-to-r from-brand-purple to-brand-pink text-white font-bold">
+                Book Venue Date
+            </a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="relative pt-12 pb-20 md:pt-20 md:pb-28 overflow-hidden">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid md:grid-cols-12 gap-12 items-center">
+                    
+                    <!-- Hero Content -->
+                    <div class="md:col-span-7 space-y-6 text-center md:text-left">
+                        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card text-brand-cyan text-xs font-semibold tracking-wide uppercase border border-brand-cyan/30">
+                            <span class="w-2 h-2 rounded-full bg-brand-cyan animate-ping"></span>
+                            Available for Local Bar & Club Booking
+                        </div>
+                        
+                        <h1 class="font-heading text-4xl sm:text-5xl lg:text-6xl font-black text-white leading-tight">
+                            HIGH-ENERGY DJ SETS FOR <span class="gradient-text">BARS & NIGHTLIFE</span>
+                        </h1>
+                        
+                        <p class="text-gray-300 text-lg max-w-xl mx-auto md:mx-0 font-normal leading-relaxed">
+                            Elevating local venue nights with precision beatmatching on hardware decks, dual-act booth energy, and full-spec lighting rigs.
+                        </p>
+
+                        <!-- Key Highlights Badges -->
+                        <div class="flex flex-wrap justify-center md:justify-start gap-3 py-2">
+                            <span class="px-3.5 py-2 rounded-xl bg-white/5 border border-white/10 text-xs font-semibold text-gray-200 flex items-center gap-2">
+                                <i class="fa-solid fa-sliders text-brand-cyan"></i> Hardware Decks + Rekordbox
+                            </span>
+                            <span class="px-3.5 py-2 rounded-xl bg-white/5 border border-white/10 text-xs font-semibold text-gray-200 flex items-center gap-2">
+                                <i class="fa-solid fa-lightbulb text-brand-neonPurple"></i> GigBar MOVE ILS Rig
+                            </span>
+                            <span class="px-3.5 py-2 rounded-xl bg-white/5 border border-white/10 text-xs font-semibold text-gray-200 flex items-center gap-2">
+                                <i class="fa-solid fa-volume-high text-brand-pink"></i> High-Power Column PA
+                            </span>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start pt-4">
+                            <a href="#booking" class="px-8 py-4 rounded-xl font-bold text-black bg-brand-cyan hover:bg-brand-cyan/90 transition-all shadow-lg shadow-brand-cyan/20 hover:scale-105 flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-calendar-check text-black"></i> Book Venue Slot
+                            </a>
+                            <a href="https://wa.me/447767060384" target="_blank" rel="noopener noreferrer" class="px-8 py-4 rounded-xl font-bold text-white bg-emerald-600 hover:bg-emerald-500 transition-all shadow-lg shadow-emerald-900/30 hover:scale-105 flex items-center justify-center gap-2">
+                                <i class="fa-brands fa-whatsapp text-xl"></i> Instant WhatsApp Chat
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Hero Spotlight Photo -->
+                    <div class="md:col-span-5">
+                        <div class="relative glass-card rounded-3xl p-4 border border-brand-purple/30 neon-box-purple">
+                            <div class="relative rounded-2xl overflow-hidden aspect-[4/3] bg-slate-950">
+                                <img src="1000140024.jpg" alt="Edgar Bros DJ Booth Session" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1571266028243-e4733b0f0bb1?auto=format&fit=crop&w=800&q=80'">
+                                <div class="absolute inset-0 bg-gradient-to-t from-brand-darkBg via-transparent to-transparent"></div>
+                                <div class="absolute bottom-4 left-4 right-4 text-left">
+                                    <span class="px-2.5 py-1 rounded bg-brand-purple/80 text-[10px] font-bold text-white uppercase tracking-wider">Live Booth Action</span>
+                                    <h3 class="font-heading text-lg font-bold text-white mt-1">Pioneer Deck Control & Mixing</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- The Dual-Act Duo Advantage -->
+        <section id="about" class="py-16 bg-brand-darkBg/60 border-y border-brand-purple/10">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-12">
+                    <h2 class="text-xs uppercase tracking-widest text-brand-cyan font-bold mb-2">Performance & Tech Duo</h2>
+                    <h3 class="font-heading text-3xl md:text-4xl font-black text-white">THE DUAL-ACT VENUE ADVANTAGE</h3>
+                    <p class="text-gray-400 mt-3 text-sm md:text-base">Why booking our Edgar Bros duo setup brings twice the crowd engagement and seamless technical reliability to your bar or club night.</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- Deck Performance Specialist -->
+                    <div class="glass-card rounded-2xl p-8 border border-brand-purple/20 relative overflow-hidden group">
+                        <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-purple to-pink-600 flex items-center justify-center text-white text-2xl font-bold mb-6 shadow-lg shadow-brand-purple/30">
+                            <i class="fa-solid fa-sliders"></i>
+                        </div>
+                        <span class="text-xs font-bold text-brand-neonPurple uppercase tracking-wider">Live Mixing & Beatmatching</span>
+                        <h4 class="font-heading text-2xl font-bold text-white mt-1 mb-3">Live Hardware Deck Operator</h4>
+                        <p class="text-gray-300 text-sm leading-relaxed mb-6">
+                            Dedicated deck mixing on Pioneer hardware controllers. Hands-on beatmatching, harmonic blending, looping drops, and keeping crowd momentum high throughout set transitions.
+                        </p>
+                        <div class="flex items-center gap-2 text-xs font-semibold text-gray-400">
+                            <i class="fa-solid fa-check text-brand-cyan"></i> Pioneer Hardware Control
+                            <span class="mx-1">•</span>
+                            <i class="fa-solid fa-check text-brand-cyan"></i> Smooth Beatmatching Transitions
+                        </div>
+                    </div>
+
+                    <!-- Tech & Audio Specialist -->
+                    <div class="glass-card rounded-2xl p-8 border border-brand-cyan/20 relative overflow-hidden group">
+                        <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-cyan to-blue-600 flex items-center justify-center text-black text-2xl font-bold mb-6 shadow-lg shadow-brand-cyan/30">
+                            <i class="fa-solid fa-laptop-code"></i>
+                        </div>
+                        <span class="text-xs font-bold text-brand-cyan uppercase tracking-wider">Audio & Lighting Management</span>
+                        <h4 class="font-heading text-2xl font-bold text-white mt-1 mb-3">Software & Technical Director</h4>
+                        <p class="text-gray-300 text-sm leading-relaxed mb-6">
+                            Managing audio queues, room sound levels, request syncing, and automated GigBar move ILS lighting effects. Guarantees zero booth downtime or audio gaps.
+                        </p>
+                        <div class="flex items-center gap-2 text-xs font-semibold text-gray-400">
+                            <i class="fa-solid fa-check text-brand-neonPurple"></i> Real-Time Queue Cues
+                            <span class="mx-1">•</span>
+                            <i class="fa-solid fa-check text-brand-neonPurple"></i> Active Lighting Control
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Genres & Music Styles -->
+        <section id="vibes" class="py-16">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-12">
+                    <h2 class="text-xs uppercase tracking-widest text-brand-neonPurple font-bold mb-2">Music Adaptability</h2>
+                    <h3 class="font-heading text-3xl md:text-4xl font-black text-white">GENRES TAILORED TO YOUR CROWD</h3>
+                    <p class="text-gray-400 mt-3 text-sm md:text-base">We adapt setlists specifically to match your venue's atmosphere—building from relaxed evening warmups to high-energy peak hour sets.</p>
+                </div>
+
+                <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="glass-card rounded-xl p-6 text-center border border-brand-purple/20">
+                        <div class="w-12 h-12 rounded-full bg-brand-purple/20 text-brand-neonPurple mx-auto flex items-center justify-center text-xl mb-4">
+                            <i class="fa-solid fa-record-vinyl"></i>
+                        </div>
+                        <h4 class="font-heading font-bold text-lg text-white mb-2">Commercial House</h4>
+                        <p class="text-xs text-gray-400">Vocal house grooves, deep basslines, and accessible electronic tracks to get people dancing.</p>
+                    </div>
+
+                    <div class="glass-card rounded-xl p-6 text-center border border-brand-cyan/20">
+                        <div class="w-12 h-12 rounded-full bg-brand-cyan/20 text-brand-cyan mx-auto flex items-center justify-center text-xl mb-4">
+                            <i class="fa-solid fa-bolt"></i>
+                        </div>
+                        <h4 class="font-heading font-bold text-lg text-white mb-2">High-Energy Dance</h4>
+                        <p class="text-xs text-gray-400">Fast-paced club floor-fillers and dance anthems for late-night peak slots.</p>
+                    </div>
+
+                    <div class="glass-card rounded-xl p-6 text-center border border-brand-pink/20">
+                        <div class="w-12 h-12 rounded-full bg-brand-pink/20 text-brand-pink mx-auto flex items-center justify-center text-xl mb-4">
+                            <i class="fa-solid fa-compact-disc"></i>
+                        </div>
+                        <h4 class="font-heading font-bold text-lg text-white mb-2">90s / 00s Club Classics</h4>
+                        <p class="text-xs text-gray-400">Nostalgic retro dance bangers and singalong club tracks that keep bar sales rolling.</p>
+                    </div>
+
+                    <div class="glass-card rounded-xl p-6 text-center border border-white/20">
+                        <div class="w-12 h-12 rounded-full bg-white/10 text-white mx-auto flex items-center justify-center text-xl mb-4">
+                            <i class="fa-solid fa-fire"></i>
+                        </div>
+                        <h4 class="font-heading font-bold text-lg text-white mb-2">Chart Edits & Remixes</h4>
+                        <p class="text-xs text-gray-400">Custom bootlegs and modern chart hits seamlessly beatmatched for commercial venues.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Comprehensive Video Reel & Photo Gallery Section -->
+        <section id="media" class="py-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-14">
+                    <h2 class="text-xs uppercase tracking-widest text-brand-pink font-bold mb-2">Real Footage & Photos</h2>
+                    <h3 class="font-heading text-3xl md:text-4xl font-black text-white">LIVE REEL & BOOTH ATMOSPHERE</h3>
+                    <p class="text-gray-400 mt-3 text-sm md:text-base">Take a look behind the decks at our studio practice sessions, venue setups, Pioneer hardware controls, and GigBar lighting rigs.</p>
+                </div>
+
+                <!-- Video Gallery Grid -->
+                <div class="mb-14">
+                    <h4 class="font-heading text-lg font-bold text-white mb-6 flex items-center gap-2">
+                        <i class="fa-solid fa-video text-brand-cyan"></i> Practice & Live Session Video Clips
+                    </h4>
+
+                    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <!-- Video 1: Studio Practice Reel -->
+                        <div class="glass-card rounded-2xl overflow-hidden border border-brand-purple/30">
+                            <div class="relative aspect-video bg-slate-950 flex items-center justify-center">
+                                <video class="w-full h-full object-cover" controls preload="metadata" poster="1000140024.jpg">
+                                    <source src="video_1.mp4" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                            </div>
+                            <div class="p-4">
+                                <span class="text-[10px] font-bold text-brand-neonPurple uppercase">Belfast DJ Studio</span>
+                                <h5 class="font-heading text-sm font-bold text-white mt-0.5">Live Beatmatching & Deck Practice</h5>
+                                <p class="text-xs text-gray-400 mt-1">High-energy deck session working on seamless track blending.</p>
+                            </div>
+                        </div>
+
+                        <!-- Video 2: Outdoor Event Drop -->
+                        <div class="glass-card rounded-2xl overflow-hidden border border-brand-purple/30">
+                            <div class="relative aspect-video bg-slate-950 flex items-center justify-center">
+                                <video class="w-full h-full object-cover" controls preload="metadata">
+                                    <source src="video_3.mp4" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                            </div>
+                            <div class="p-4">
+                                <span class="text-[10px] font-bold text-brand-cyan uppercase">Outdoor Stage Set</span>
+                                <h5 class="font-heading text-sm font-bold text-white mt-0.5">Live Mix & Lighting Controls</h5>
+                                <p class="text-xs text-gray-400 mt-1">Evening set showing live track selection and lighting sync.</p>
+                            </div>
+                        </div>
+
+                        <!-- Video 3: Decks Close-Up -->
+                        <div class="glass-card rounded-2xl overflow-hidden border border-brand-purple/30">
+                            <div class="relative aspect-video bg-slate-950 flex items-center justify-center">
+                                <video class="w-full h-full object-cover" controls preload="metadata">
+                                    <source src="video_2.mp4" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                            </div>
+                            <div class="p-4">
+                                <span class="text-[10px] font-bold text-brand-pink uppercase">Hardware Tech</span>
+                                <h5 class="font-heading text-sm font-bold text-white mt-0.5">Pioneer Decks & Rekordbox UI</h5>
+                                <p class="text-xs text-gray-400 mt-1">Close-up of Rekordbox waveforms and deck mixer controls.</p>
+                            </div>
+                        </div>
+
+                        <!-- Video 4: Sunset Atmosphere -->
+                        <div class="glass-card rounded-2xl overflow-hidden border border-brand-purple/30">
+                            <div class="relative aspect-video bg-slate-950 flex items-center justify-center">
+                                <video class="w-full h-full object-cover" controls preload="metadata">
+                                    <source src="video_4.mp4" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                            </div>
+                            <div class="p-4">
+                                <span class="text-[10px] font-bold text-brand-neonPurple uppercase">Sunset Vibes</span>
+                                <h5 class="font-heading text-sm font-bold text-white mt-0.5">Deck Hands & Lighting Transition</h5>
+                                <p class="text-xs text-gray-400 mt-1">Golden hour event transition with overhead GigBar lighting.</p>
+                            </div>
+                        </div>
+
+                        <!-- Video 5: Crowd Angle -->
+                        <div class="glass-card rounded-2xl overflow-hidden border border-brand-purple/30">
+                            <div class="relative aspect-video bg-slate-950 flex items-center justify-center">
+                                <video class="w-full h-full object-cover" controls preload="metadata">
+                                    <source src="video_5.mp4" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                            </div>
+                            <div class="p-4">
+                                <span class="text-[10px] font-bold text-brand-cyan uppercase">Crowd Atmosphere</span>
+                                <h5 class="font-heading text-sm font-bold text-white mt-0.5">Booth View & Guests Dancing</h5>
+                                <p class="text-xs text-gray-400 mt-1">POV overlooking the dance floor and party setup.</p>
+                            </div>
+                        </div>
+
+                        <!-- Video 6: Rig Check & Smoke FX -->
+                        <div class="glass-card rounded-2xl overflow-hidden border border-brand-purple/30">
+                            <div class="relative aspect-video bg-slate-950 flex items-center justify-center">
+                                <video class="w-full h-full object-cover" controls preload="metadata">
+                                    <source src="video_6.mp4" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                            </div>
+                            <div class="p-4">
+                                <span class="text-[10px] font-bold text-brand-pink uppercase">Lighting & Smoke FX</span>
+                                <h5 class="font-heading text-sm font-bold text-white mt-0.5">GigBar Lighting Rig Walkthrough</h5>
+                                <p class="text-xs text-gray-400 mt-1">Full rig test showing haze effects and moving heads.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Photos Showcase Section -->
+                <div>
+                    <h4 class="font-heading text-lg font-bold text-white mb-6 flex items-center gap-2">
+                        <i class="fa-solid fa-camera text-brand-neonPurple"></i> Venue & Rig Photography
+                    </h4>
+
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <!-- Photo 1: Full Setup Rig -->
+                        <div class="glass-card rounded-2xl overflow-hidden border border-brand-cyan/30 p-3 group">
+                            <div class="aspect-[4/3] rounded-xl overflow-hidden bg-slate-950 relative">
+                                <img src="1000144930.jpg" alt="Edgar Bros Full Lighting Rig Setup" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=800&q=80'">
+                            </div>
+                            <div class="pt-3 px-2">
+                                <h5 class="font-heading text-base font-bold text-white">Full Venue Rig & Column Speakers</h5>
+                                <p class="text-xs text-gray-400 mt-0.5">GigBar MOVE ILS lighting stand, DJ facade, dual column PA subwoofers, and purple wash.</p>
+                            </div>
+                        </div>
+
+                        <!-- Photo 2: Close-up Booth Session -->
+                        <div class="glass-card rounded-2xl overflow-hidden border border-brand-purple/30 p-3 group">
+                            <div class="aspect-[4/3] rounded-xl overflow-hidden bg-slate-950 relative">
+                                <img src="1000140024.jpg" alt="Pioneer Controller Mixing Session" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=800&q=80'">
+                            </div>
+                            <div class="pt-3 px-2">
+                                <h5 class="font-heading text-base font-bold text-white">Behind-The-Decks Live Mixing</h5>
+                                <p class="text-xs text-gray-400 mt-0.5">Pioneer hardware controller mixing, cue monitoring, and software track queuing.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Gear Spec & Equipment Section -->
+        <section id="rig" class="py-16 bg-brand-darkBg/90 border-y border-brand-purple/20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-12">
+                    <h2 class="text-xs uppercase tracking-widest text-brand-cyan font-bold mb-2">Technical Capabilities</h2>
+                    <h3 class="font-heading text-3xl font-black text-white">PRO EQUIPMENT SPEC SHEET</h3>
+                    <p class="text-gray-400 text-sm mt-2">Whether plugging into your bar’s installed sound or providing a complete mobile setup, we bring top-tier gear.</p>
+                </div>
+
+                <div class="grid md:grid-cols-4 gap-6">
+                    <!-- Gear Item 1 -->
+                    <div class="glass-card rounded-2xl p-6 border border-brand-purple/20">
+                        <div class="w-10 h-10 rounded-xl bg-brand-purple/20 text-brand-neonPurple flex items-center justify-center text-lg font-bold mb-4">
+                            <i class="fa-solid fa-sliders"></i>
+                        </div>
+                        <h4 class="font-heading font-bold text-white text-base">Decks & Controllers</h4>
+                        <ul class="text-xs text-gray-400 mt-3 space-y-2">
+                            <li>• Pioneer DDJ Series Controller</li>
+                            <li>• Rekordbox Pro DJ Software</li>
+                            <li>• Low-Latency Hardware Mixing</li>
+                        </ul>
+                    </div>
+
+                    <!-- Gear Item 2 -->
+                    <div class="glass-card rounded-2xl p-6 border border-brand-cyan/20">
+                        <div class="w-10 h-10 rounded-xl bg-brand-cyan/20 text-brand-cyan flex items-center justify-center text-lg font-bold mb-4">
+                            <i class="fa-solid fa-lightbulb"></i>
+                        </div>
+                        <h4 class="font-heading font-bold text-white text-base">GigBar MOVE ILS Rig</h4>
+                        <ul class="text-xs text-gray-400 mt-3 space-y-2">
+                            <li>• Moving Head Spotlights</li>
+                            <li>• RGB Ambient Wash Lights</li>
+                            <li>• Strobe & Laser Visual Effects</li>
+                        </ul>
+                    </div>
+
+                    <!-- Gear Item 3 -->
+                    <div class="glass-card rounded-2xl p-6 border border-brand-pink/20">
+                        <div class="w-10 h-10 rounded-xl bg-brand-pink/20 text-brand-pink flex items-center justify-center text-lg font-bold mb-4">
+                            <i class="fa-solid fa-volume-high"></i>
+                        </div>
+                        <h4 class="font-heading font-bold text-white text-base">Column PA Audio</h4>
+                        <ul class="text-xs text-gray-400 mt-3 space-y-2">
+                            <li>• Dual Active Column Speakers</li>
+                            <li>• High-Power Subwoofers</li>
+                            <li>• Crisp Sound Dispersion</li>
+                        </ul>
+                    </div>
+
+                    <!-- Gear Item 4 -->
+                    <div class="glass-card rounded-2xl p-6 border border-white/20">
+                        <div class="w-10 h-10 rounded-xl bg-white/10 text-white flex items-center justify-center text-lg font-bold mb-4">
+                            <i class="fa-solid fa-shield-halved"></i>
+                        </div>
+                        <h4 class="font-heading font-bold text-white text-base">Venue Essentials</h4>
+                        <ul class="text-xs text-gray-400 mt-3 space-y-2">
+                            <li>• Public Liability Insured (PLI)</li>
+                            <li>• Sleek Black DJ Booth Facade</li>
+                            <li>• Optional Wireless Mics / Haze</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Booking & Inquiry Form -->
+        <section id="booking" class="py-20 relative">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="glass-card rounded-3xl p-8 md:p-12 border border-brand-purple/30 shadow-2xl relative overflow-hidden">
+                    <div class="text-center max-w-xl mx-auto mb-8">
+                        <span class="text-xs font-bold text-brand-cyan uppercase tracking-wider">Direct Venue Contact</span>
+                        <h3 class="font-heading text-3xl md:text-4xl font-black text-white mt-1">BOOK EDGAR BROS FOR YOUR VENUE</h3>
+                        <p class="text-gray-400 text-sm mt-2">Send an inquiry to check availability for weekend bar slots, residencies, or guest club dates.</p>
+                    </div>
+
+                    <!-- Direct Fast Action Buttons -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+                        <a href="https://wa.me/447767060384" target="_blank" rel="noopener noreferrer" class="p-4 rounded-2xl bg-emerald-950/60 hover:bg-emerald-900/60 border border-emerald-500/30 flex items-center justify-center gap-3 transition-colors">
+                            <i class="fa-brands fa-whatsapp text-emerald-400 text-2xl"></i>
+                            <div class="text-left">
+                                <span class="text-[10px] uppercase text-emerald-300 font-bold block">Instant Chat</span>
+                                <span class="text-sm font-bold text-white">WhatsApp 07767060384</span>
+                            </div>
+                        </a>
+
+                        <a href="tel:07767060384" class="p-4 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 flex items-center justify-center gap-3 transition-colors">
+                            <i class="fa-solid fa-phone text-brand-cyan text-xl"></i>
+                            <div class="text-left">
+                                <span class="text-[10px] uppercase text-gray-400 font-bold block">Direct Call</span>
+                                <span class="text-sm font-bold text-white">07767060384</span>
+                            </div>
+                        </a>
+                    </div>
+
+                    <!-- Form -->
+                    <form id="bookingForm" class="space-y-6">
+                        <div class="grid sm:grid-cols-2 gap-6">
+                            <div>
+                                <label for="name" class="block text-xs font-bold text-gray-300 uppercase mb-2">Your Name / Title</label>
+                                <input type="text" id="name" required placeholder="e.g. Mark (Bar Manager)" class="w-full px-4 py-3 rounded-xl bg-slate-950/80 border border-brand-purple/30 text-white placeholder-gray-600 focus:outline-none focus:border-brand-cyan transition-colors text-sm">
+                            </div>
+
+                            <div>
+                                <label for="venue" class="block text-xs font-bold text-gray-300 uppercase mb-2">Venue / Pub Name</label>
+                                <input type="text" id="venue" required placeholder="e.g. The Belfast Lounge Bar" class="w-full px-4 py-3 rounded-xl bg-slate-950/80 border border-brand-purple/30 text-white placeholder-gray-600 focus:outline-none focus:border-brand-cyan transition-colors text-sm">
+                            </div>
+                        </div>
+
+                        <div class="grid sm:grid-cols-2 gap-6">
+                            <div>
+                                <label for="date" class="block text-xs font-bold text-gray-300 uppercase mb-2">Requested Date</label>
+                                <input type="date" id="date" required class="w-full px-4 py-3 rounded-xl bg-slate-950/80 border border-brand-purple/30 text-white focus:outline-none focus:border-brand-cyan transition-colors text-sm">
+                            </div>
+
+                            <div>
+                                <label for="serviceType" class="block text-xs font-bold text-gray-300 uppercase mb-2">Booking Type</label>
+                                <select id="serviceType" class="w-full px-4 py-3 rounded-xl bg-slate-950/80 border border-brand-purple/30 text-white focus:outline-none focus:border-brand-cyan transition-colors text-sm">
+                                    <option value="Bar Residency">Weekly / Bi-Weekly Bar Residency</option>
+                                    <option value="Single Weekend Night">Single Weekend Bar Night</option>
+                                    <option value="Guest Club Slot">Guest Club Slot</option>
+                                    <option value="Special Venue Event">Special Event / Holiday Night</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="email" class="block text-xs font-bold text-gray-300 uppercase mb-2">Email Address</label>
+                            <input type="email" id="email" required placeholder="seanedgar47@gmail.com" class="w-full px-4 py-3 rounded-xl bg-slate-950/80 border border-brand-purple/30 text-white placeholder-gray-600 focus:outline-none focus:border-brand-cyan transition-colors text-sm">
+                        </div>
+
+                        <div>
+                            <label for="message" class="block text-xs font-bold text-gray-300 uppercase mb-2">Set Hours & Details</label>
+                            <textarea id="message" rows="3" placeholder="Set duration, sound setup available at venue..." class="w-full px-4 py-3 rounded-xl bg-slate-950/80 border border-brand-purple/30 text-white placeholder-gray-600 focus:outline-none focus:border-brand-cyan transition-colors text-sm"></textarea>
+                        </div>
+
+                        <button type="submit" class="w-full py-4 rounded-xl bg-gradient-to-r from-brand-purple via-brand-pink to-brand-cyan text-white font-bold text-base hover:opacity-95 shadow-xl transition-all hover:scale-[1.01] flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-paper-plane"></i> Submit Booking Inquiry
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-950 border-t border-brand-purple/20 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                <div>
+                    <span class="font-heading font-black text-xl text-white tracking-wider block">EDGAR BROS ENTERTAINMENT</span>
+                    <p class="text-xs text-gray-400 mt-1">Bar & Venue DJ Services • Live Deck Beats & Nightlife Entertainment</p>
+                </div>
+
+                <div class="flex items-center space-x-4">
+                    <a href="https://instagram.com/edgarbrosentertainment26" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full glass-card flex items-center justify-center text-gray-300 hover:text-brand-pink transition-colors">
+                        <i class="fa-brands fa-instagram text-lg"></i>
+                    </a>
+                    <a href="https://facebook.com/EdgarBrosEntertainment" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full glass-card flex items-center justify-center text-gray-300 hover:text-brand-cyan transition-colors">
+                        <i class="fa-brands fa-facebook-f text-lg"></i>
+                    </a>
+                    <a href="https://tiktok.com/@edgarbros26" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full glass-card flex items-center justify-center text-gray-300 hover:text-brand-neonPurple transition-colors">
+                        <i class="fa-brands fa-tiktok text-lg"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="mt-8 pt-8 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between text-xs text-gray-500 gap-4">
+                <p>&copy; Edgar Bros Entertainment. All rights reserved.</p>
+                <div class="flex gap-4">
+                    <span>Tel: 07767060384</span>
+                    <span>Email: seanedgar47@gmail.com</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-32 opacity-0 glass-card px-6 py-4 rounded-2xl border border-brand-cyan/40 shadow-2xl flex items-center gap-3">
+        <i class="fa-solid fa-circle-check text-brand-cyan text-xl"></i>
+        <div>
+            <h5 class="text-sm font-bold text-white">Inquiry Sent!</h5>
+            <p class="text-xs text-gray-300">Thanks! We will respond regarding your venue booking date shortly.</p>
+        </div>
+    </div>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        // Mobile Navigation Drawer Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        document.querySelectorAll('#mobileMenu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Form Submit Simulation
+        const bookingForm = document.getElementById('bookingForm');
+        const toast = document.getElementById('toast');
+
+        bookingForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            toast.classList.remove('translate-y-32', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            bookingForm.reset();
+
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-32', 'opacity-0');
+            }, 4000);
+        });
+    </script>
+</body>
+</html>
